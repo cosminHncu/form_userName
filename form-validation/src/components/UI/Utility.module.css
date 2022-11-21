@@ -1,0 +1,44 @@
+.form-holder{
+  width: 100%;
+  height: 100%s;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  
+}
+.form-holder__input{
+  width: 100%;
+  font-size: 1.1rem;
+  background-color: #b2d8d8;
+  color: #004c4c;
+  border: #888 solid 1px;
+}
+.form-holder__input:focus{
+  outline: none;
+}
+.button{
+  background-color: #004c4c;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0.4rem;
+  margin: 0 1rem;
+  cursor: pointer;
+  width: 20%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: all 0.2s ease-in-out;
+}
+.button:hover{
+  background-color:#008080;
+}
+.label {
+  letter-spacing: 2px;
+  padding: 0.2rem;
+  color: #004c4c;
+}

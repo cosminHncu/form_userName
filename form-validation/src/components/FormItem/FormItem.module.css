@@ -1,0 +1,25 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem;
+  transition: all 0.2s ease-in-out;
+}
+.textSize{
+  display: flex;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #b2d8d8;
+  width: 100%;
+  margin: 0 2rem;
+  padding: 0.6rem;
+}
+.userName{
+  margin: 0 2.5rem;
+  width: 100%;
+  letter-spacing: 2px;
+
+}
+.userAge{
+  margin: 0 1.8rem;
+  width: 100%;
+}
