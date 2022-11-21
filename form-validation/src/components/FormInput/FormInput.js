@@ -29,7 +29,7 @@ const FormInput = (props) => {
     <form onSubmit={handelSubmitButton} className={formInput["form-input"]}>
       <div className={utility["form-holder"]}>
         <div className={utility["container"]}>
-          <label className={utility.label}>User Name</label>
+          <label className={utility.label}>User Name {"to be modified"}</label>
           <input
             value={userName}
             onChange={handelUserNameInput}
