@@ -1,10 +1,13 @@
 import formInput from "./FormInput.module.css";
 import utility from "../UI/Utility.module.css";
+import Button from "../UI/Button";
 import React, { useState } from "react";
+import ErrorModal from "../ErrorModal/ErrorModal";
 
 const FormInput = (props) => {
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState("");
+  const [error, setError] = useState();
 
   const handelUserNameInput = (e) => {
     setUserName(e.target.value);
@@ -16,6 +19,20 @@ const FormInput = (props) => {
 
   const handelSubmitButton = (e) => {
     e.preventDefault();
+    if (userName.trim().length === 0 || userAge.trim().length === 0) {
+      setError({
+        title: "Invalid input",
+        message: "Please enter a valid name and age",
+      });
+      return;
+    }
+    if (+userAge < 1 || +userAge >= 100) {
+      setError({
+        title: "Invalid age",
+        message: "Please enter a valid name and age",
+      });
+      return;
+    }
     const user = {
       userName: userName,
       userAge: userAge,
@@ -24,39 +41,45 @@ const FormInput = (props) => {
     setUserAge("");
     setUserName("");
   };
+  const handelError = () => {
+    setError(null);
+  };
 
   return (
-    <form onSubmit={handelSubmitButton} className={formInput["form-input"]}>
-      <div className={utility["form-holder"]}>
-        <div className={utility["container"]}>
-          <label className={utility.label}>User Name {"to be modified"}</label>
-          <input
-            value={userName}
-            onChange={handelUserNameInput}
-            className={`${utility["form-holder__input"]}`}
-            type="text"
-            required
-            minLength="4"
-            maxLength="7"
-          />
+    <div>
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={handelError}
+        />
+      )}
+      <form onSubmit={handelSubmitButton} className={formInput["form-input"]}>
+        <div className={utility["form-holder"]}>
+          <div className={utility["container"]}>
+            <label className={utility.label}>User Name</label>
+            <input
+              value={userName}
+              onChange={handelUserNameInput}
+              className={`${utility["form-holder__input"]}`}
+              type="text"
+            />
+          </div>
         </div>
-      </div>
-      <div className={utility["form-holder"]}>
-        <div className={utility[`container`]}>
-          <label className={utility.label}>Age</label>
-          <input
-            value={userAge}
-            onChange={handelUserAgeInput}
-            className={`${utility["form-holder__input"]}`}
-            type="number"
-            required
-            maxLength="1"
-            min="1"
-          />
+        <div className={utility["form-holder"]}>
+          <div className={utility[`container`]}>
+            <label className={utility.label}>Age</label>
+            <input
+              value={userAge}
+              onChange={handelUserAgeInput}
+              className={`${utility["form-holder__input"]}`}
+              type="number"
+            />
+          </div>
         </div>
-      </div>
-      <button className={utility.button}>Submit</button>
-    </form>
+        <Button type={"submit"}>Submit</Button>
+      </form>
+    </div>
   );
 };
 
