@@ -1,23 +1,17 @@
 import formInput from "./FormInput.module.css";
 import utility from "../UI/Utility.module.css";
 import Button from "../UI/Button";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ErrorModal from "../ErrorModal/ErrorModal";
 
 const FormInput = (props) => {
-  const [userName, setUserName] = useState("");
-  const [userAge, setUserAge] = useState("");
+  const userNameRef = useRef();
+  const userAgeRef = useRef();
   const [error, setError] = useState();
 
-  const handelUserNameInput = (e) => {
-    setUserName(e.target.value);
-  };
-
-  const handelUserAgeInput = (e) => {
-    setUserAge(e.target.value);
-  };
-
   const handelSubmitButton = (e) => {
+    const userName = userNameRef.current.value;
+    const userAge = userAgeRef.current.value;
     e.preventDefault();
     if (userName.trim().length === 0 || userAge.trim().length === 0) {
       setError({
@@ -38,9 +32,11 @@ const FormInput = (props) => {
       userAge: userAge,
     };
     props.onSaveUserData(user);
-    setUserAge("");
-    setUserName("");
   };
+  // bad practice to modify the DOM by urself
+  //just when you have to reset the form
+  userNameRef.current.value = "";
+  userAgeRef.current.value = "";
   const handelError = () => {
     setError(null);
   };
@@ -59,8 +55,7 @@ const FormInput = (props) => {
           <div className={utility["container"]}>
             <label className={utility.label}>User Name</label>
             <input
-              value={userName}
-              onChange={handelUserNameInput}
+              ref={userNameRef}
               className={`${utility["form-holder__input"]}`}
               type="text"
             />
@@ -70,8 +65,7 @@ const FormInput = (props) => {
           <div className={utility[`container`]}>
             <label className={utility.label}>Age</label>
             <input
-              value={userAge}
-              onChange={handelUserAgeInput}
+              ref={userAgeRef}
               className={`${utility["form-holder__input"]}`}
               type="number"
             />
